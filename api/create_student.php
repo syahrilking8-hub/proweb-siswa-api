@@ -24,7 +24,7 @@ $foto          = '';
 
 // --- LOGIK UPLOAD FOTO DARI MOBILE ---
 if (isset($_FILES['foto']) && $_FILES['foto']['error'] === UPLOAD_ERR_OK) {
-    $targetDir = __DIR__ . '/../uploads/';
+    $targetDir = __DIR__ . '/../public/uploads/';
     if (!file_exists($targetDir)) {
         mkdir($targetDir, 0777, true);
     }
