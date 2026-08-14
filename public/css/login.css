@@ -1,0 +1,104 @@
+body.login-body {
+    background-color: var(--bg-dark);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    padding: 16px;
+}
+
+.login-card {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    max-width: 420px;
+    background: rgba(10, 16, 31, 0.45);
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
+    border: 1px solid rgba(245, 158, 11, 0.6);
+    border-radius: 28px;
+    padding: 32px 24px;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.65);
+    animation: cardGlowPulse 3s infinite ease-in-out;
+}
+
+.login-title {
+    text-align: center;
+    color: var(--text-light);
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 24px;
+    letter-spacing: 0.5px;
+}
+
+.login-field {
+    margin-bottom: 18px;
+}
+
+.login-field label {
+    display: block;
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.login-field input,
+.login-field select {
+    width: 100%;
+    background: rgba(2, 6, 23, 0.5);
+    border: 1px solid rgba(245, 158, 11, 0.45);
+    border-radius: 12px;
+    padding: 12px 16px;
+    color: var(--text-light);
+    font-size: 14px;
+    outline: none;
+    transition: all 0.25s ease;
+}
+
+.login-field select option {
+    background: #0f172a;
+    color: #f8fafc;
+}
+
+.login-field input:focus,
+.login-field select:focus {
+    border-color: var(--emas-orange-bright);
+    box-shadow: 0 0 15px rgba(245, 158, 11, 0.5);
+}
+
+.login-btn {
+    width: 100%;
+    margin-top: 10px;
+    background: linear-gradient(135deg, var(--emas-orange), var(--emas-orange-dark));
+    color: #020617;
+    border: none;
+    border-radius: 12px;
+    padding: 14px;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    box-shadow: 0 0 15px rgba(245, 158, 11, 0.4);
+    transition: all 0.3s ease;
+}
+
+.login-btn:hover {
+    background: linear-gradient(135deg, var(--emas-orange-bright), var(--emas-orange));
+    box-shadow: 0 0 25px rgba(245, 158, 11, 0.7);
+    transform: translateY(-2px);
+}
+
+.login-error {
+    background: rgba(239, 68, 68, 0.15);
+    border: 1px solid rgba(239, 68, 68, 0.4);
+    color: #fca5a5;
+    font-size: 13px;
+    padding: 10px 14px;
+    border-radius: 10px;
+    margin-bottom: 18px;
+    text-align: center;
+}

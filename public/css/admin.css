@@ -1,0 +1,105 @@
+.admin-table-wrap {
+    overflow-x: auto;
+    border-radius: 0.75rem;
+}
+
+.admin-table {
+    width: 100%;
+    min-width: 600px;
+    border-collapse: separate;
+    border-spacing: 0;
+    border: 1.5px solid rgba(245, 158, 11, 0.4);
+    border-radius: 0.75rem;
+    overflow: hidden;
+}
+
+.admin-table th, .admin-table td {
+    border-right: 1px solid rgba(245, 158, 11, 0.25);
+    border-bottom: 1px solid rgba(245, 158, 11, 0.25);
+    padding: 0.9rem 1rem;
+    text-align: center;
+}
+
+.admin-table th:last-child, .admin-table td:last-child { border-right: none; }
+.admin-table tbody tr:last-child td { border-bottom: none; }
+
+.admin-table thead th {
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #fbbf24;
+    background: rgba(2, 6, 23, 0.6);
+}
+
+.admin-table tbody tr:hover td {
+    background: rgba(245, 158, 11, 0.05);
+}
+
+.admin-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    background: linear-gradient(135deg, var(--emas-orange), var(--emas-orange-dark));
+    color: #020617 !important;
+    padding: 0.6rem 1.2rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    font-size: 0.85rem;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.admin-btn:hover {
+    background: linear-gradient(135deg, var(--emas-orange-bright), var(--emas-orange));
+    box-shadow: 0 0 15px rgba(245, 158, 11, 0.6);
+    transform: translateY(-2px);
+}
+
+.btn-delete {
+    background: rgba(2, 6, 23, 0.7) !important;
+    border: 1px solid rgba(245, 158, 11, 0.35) !important;
+    color: var(--emas-orange-bright) !important;
+}
+
+.btn-delete:hover {
+    background: rgba(239, 68, 68, 0.2) !important;
+    border-color: rgba(239, 68, 68, 0.8) !important;
+    color: #ef4444 !important;
+}
+
+/* Overlay & Modal */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(2, 6, 23, 0.85);
+    backdrop-filter: blur(8px);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.modal-overlay.is-open {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modal-card {
+    background: rgba(15, 23, 42, 0.95);
+    border: 1px solid rgba(245, 158, 11, 0.5);
+    border-radius: 1rem;
+    padding: 2rem;
+    width: 90%;
+    max-width: 480px;
+    transform: translateY(20px);
+    transition: transform 0.3s ease;
+}
+
+.modal-overlay.is-open .modal-card {
+    transform: translateY(0);
+}
