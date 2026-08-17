@@ -5,9 +5,15 @@ class ApiController {
     private $userModel;
 
     public function __construct() {
-        // Set Header wajib JSON untuk semua respon API
-        header('Content-Type: application/json; charset=utf-8');
+        // HAPUS header() dari sini biar tidak merusak halaman HTML biasa!
         $this->userModel = new UserModel();
+    }
+
+    // HELPER: Send JSON Response
+    private function jsonResponse($data) {
+        header('Content-Type: application/json; charset=utf-8');
+        echo json_encode($data);
+        exit;
     }
 
     // HELPER: Upload Foto khusus API
@@ -39,12 +45,12 @@ class ApiController {
     public function getStudents() {
         try {
             $students = $this->userModel->getAllStudents();
-            echo json_encode([
+            $this->jsonResponse([
                 'status' => 'success',
                 'data' => $students
             ]);
         } catch (Exception $e) {
-            echo json_encode([
+            $this->jsonResponse([
                 'status' => 'error',
                 'message' => $e->getMessage()
             ]);
@@ -67,12 +73,12 @@ class ApiController {
             $success = $this->userModel->createStudent($nis, $nama, $alamat, $tempat_lahir, $tanggal_lahir, $hobi, $cita_cita, $foto);
 
             if ($success) {
-                echo json_encode([
+                $this->jsonResponse([
                     'status' => 'success',
                     'message' => 'Data siswa berhasil ditambahkan!'
                 ]);
             } else {
-                echo json_encode([
+                $this->jsonResponse([
                     'status' => 'error',
                     'message' => 'Gagal menambahkan data ke database.'
                 ]);
@@ -97,12 +103,12 @@ class ApiController {
             $success = $this->userModel->updateStudent($id, $nis, $nama, $alamat, $tempat_lahir, $tanggal_lahir, $hobi, $cita_cita, $foto);
 
             if ($success) {
-                echo json_encode([
+                $this->jsonResponse([
                     'status' => 'success',
                     'message' => 'Data siswa berhasil diperbarui!'
                 ]);
             } else {
-                echo json_encode([
+                $this->jsonResponse([
                     'status' => 'error',
                     'message' => 'Gagal memperbarui data.'
                 ]);
@@ -116,14 +122,13 @@ class ApiController {
         if ($id) {
             $success = $this->userModel->deleteStudent($id);
             if ($success) {
-                echo json_encode([
+                $this->jsonResponse([
                     'status' => 'success',
                     'message' => 'Data siswa berhasil dihapus!'
                 ]);
-                return;
             }
         }
-        echo json_encode([
+        $this->jsonResponse([
             'status' => 'error',
             'message' => 'ID tidak ditemukan atau gagal dihapus.'
         ]);
