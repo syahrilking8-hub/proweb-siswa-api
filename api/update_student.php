@@ -23,6 +23,14 @@ $hobi          = $_POST['hobi'] ?? $input['hobi'] ?? '';
 $cita_cita     = $_POST['cita_cita'] ?? $input['cita_cita'] ?? '';
 $foto          = '';
 
+$userModel = new UserModel();
+
+// Jika user tidak mengupload foto baru saat edit, ambil foto lama dari database agar tidak hilang
+if (!isset($_FILES['foto']) || $_FILES['foto']['error'] !== UPLOAD_ERR_OK) {
+    $existingStudent = $userModel->getStudentById($id);
+    $foto = $existingStudent['foto'] ?? '';
+}
+
 // --- LOGIK UPLOAD FOTO BARU ---
 if (isset($_FILES['foto']) && $_FILES['foto']['error'] === UPLOAD_ERR_OK) {
     $targetDir = __DIR__ . '/../public/uploads/';
@@ -37,16 +45,21 @@ if (isset($_FILES['foto']) && $_FILES['foto']['error'] === UPLOAD_ERR_OK) {
     if (move_uploaded_file($_FILES['foto']['tmp_name'], $targetFile)) {
         $foto = $fileName;
     }
-} else {
-    $foto = $_POST['foto'] ?? $input['foto'] ?? '';
 }
 
 if ($id && !empty($nis) && !empty($nama)) {
-    $userModel = new UserModel();
     $userModel->updateStudent($id, $nis, $nama, $alamat, $tempat_lahir, $tanggal_lahir, $hobi, $cita_cita, $foto);
     
-    echo json_encode(["status" => "success", "message" => "Data siswa berhasil diperbarui"]);
+    echo json_encode([
+        "status" => "success", 
+        "message" => "Data siswa berhasil diperbarui",
+        "foto" => $foto
+    ]);
 } else {
     http_response_code(400);
-    echo json_encode(["status" => "error", "message" => "ID, NIS, dan Nama wajib diisi"]);
+    echo json_encode([
+        "status" => "error", 
+        "message" => "ID, NIS, dan Nama wajib diisi"
+    ]);
 }
+?>

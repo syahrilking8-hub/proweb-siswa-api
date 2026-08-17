@@ -37,7 +37,6 @@ if (isset($_FILES['foto']) && $_FILES['foto']['error'] === UPLOAD_ERR_OK) {
         $foto = $fileName;
     }
 } else {
-    // Jika dikirim berupa string URL/Base64
     $foto = $_POST['foto'] ?? $input['foto'] ?? '';
 }
 
@@ -46,8 +45,16 @@ if (!empty($nis) && !empty($nama)) {
     $userModel->createStudent($nis, $nama, $alamat, $tempat_lahir, $tanggal_lahir, $hobi, $cita_cita, $foto);
     
     http_response_code(201);
-    echo json_encode(["status" => "success", "message" => "Data siswa berhasil ditambahkan", "foto" => $foto]);
+    echo json_encode([
+        "status" => "success", 
+        "message" => "Data siswa berhasil ditambahkan", 
+        "foto" => $foto
+    ]);
 } else {
     http_response_code(400);
-    echo json_encode(["status" => "error", "message" => "NIS dan Nama wajib diisi"]);
+    echo json_encode([
+        "status" => "error", 
+        "message" => "NIS dan Nama wajib diisi"
+    ]);
 }
+?>

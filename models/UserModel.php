@@ -72,38 +72,29 @@ class UserModel {
         ]);
     }
 
-    // UPDATE: Update data lengkap + foto
+    // UPDATE: Update data lengkap + foto (Disempurnakan agar selalu aman memuat parameter foto)
     public function updateStudent($id, $nis, $nama, $alamat, $tempat_lahir = '', $tanggal_lahir = '', $hobi = '', $cita_cita = '', $foto = '') {
-        if (!empty($foto)) {
-            $stmt = $this->db->prepare("UPDATE students SET nis = :nis, nama = :nama, alamat = :alamat, 
-                                        tempat_lahir = :tempat_lahir, tanggal_lahir = :tanggal_lahir, 
-                                        hobi = :hobi, cita_cita = :cita_cita, foto = :foto WHERE id = :id");
-            return $stmt->execute([
-                ':id'            => $id,
-                ':nis'           => $nis,
-                ':nama'          => $nama,
-                ':alamat'        => $alamat,
-                ':tempat_lahir'  => $tempat_lahir,
-                ':tanggal_lahir' => $tanggal_lahir,
-                ':hobi'          => $hobi,
-                ':cita_cita'     => $cita_cita,
-                ':foto'          => $foto
-            ]);
-        } else {
-            $stmt = $this->db->prepare("UPDATE students SET nis = :nis, nama = :nama, alamat = :alamat, 
-                                        tempat_lahir = :tempat_lahir, tanggal_lahir = :tanggal_lahir, 
-                                        hobi = :hobi, cita_cita = :cita_cita WHERE id = :id");
-            return $stmt->execute([
-                ':id'            => $id,
-                ':nis'           => $nis,
-                ':nama'          => $nama,
-                ':alamat'        => $alamat,
-                ':tempat_lahir'  => $tempat_lahir,
-                ':tanggal_lahir' => $tanggal_lahir,
-                ':hobi'          => $hobi,
-                ':cita_cita'     => $cita_cita
-            ]);
-        }
+        $stmt = $this->db->prepare("UPDATE students SET 
+                                    nis = :nis, 
+                                    nama = :nama, 
+                                    alamat = :alamat, 
+                                    tempat_lahir = :tempat_lahir, 
+                                    tanggal_lahir = :tanggal_lahir, 
+                                    hobi = :hobi, 
+                                    cita_cita = :cita_cita, 
+                                    foto = :foto 
+                                    WHERE id = :id");
+        return $stmt->execute([
+            ':id'            => $id,
+            ':nis'           => $nis,
+            ':nama'          => $nama,
+            ':alamat'        => $alamat,
+            ':tempat_lahir'  => $tempat_lahir,
+            ':tanggal_lahir' => $tanggal_lahir,
+            ':hobi'          => $hobi,
+            ':cita_cita'     => $cita_cita,
+            ':foto'          => $foto
+        ]);
     }
 
     public function deleteStudent($id) {
@@ -112,3 +103,4 @@ class UserModel {
         return $stmt->execute();
     }
 }
+?>
