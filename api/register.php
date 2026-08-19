@@ -26,9 +26,16 @@ $data = json_decode(file_get_contents("php://input"));
 if (!$data) {
     $username = isset($_POST['username']) ? trim($_POST['username']) : '';
     $password = isset($_POST['password']) ? trim($_POST['password']) : '';
+    $role     = isset($_POST['role']) ? strtolower(trim($_POST['role'])) : 'user';
 } else {
     $username = isset($data->username) ? trim($data->username) : '';
     $password = isset($data->password) ? trim($data->password) : '';
+    $role     = isset($data->role) ? strtolower(trim($data->role)) : 'user';
+}
+
+// Jika role yang dikirim bukan admin/user, paksa set ke 'user'
+if (!in_array($role, ['admin', 'user'])) {
+    $role = 'user';
 }
 
 // Validation: Cek apakah username & password diisi
@@ -51,14 +58,13 @@ if (!empty($username) && !empty($password)) {
 
         // 2. Hash Password demi keamanan
         $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
-        $defaultRole = 'user'; // Default role untuk pendaftar baru
 
-        // 3. Insert ke database
+        // 3. Insert ke database (Gunakan variabel $role yang sudah di-lowercase & divalidasi)
         $insertStmt = $db->prepare("INSERT INTO users (username, password, role) VALUES (:username, :password, :role)");
         $exec = $insertStmt->execute([
             ':username' => $username,
             ':password' => $hashedPassword,
-            ':role'     => $defaultRole
+            ':role'     => $role
         ]);
 
         if ($exec) {
